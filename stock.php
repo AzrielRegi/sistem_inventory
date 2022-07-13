@@ -1,5 +1,6 @@
 <?php
 require 'cek_login.php';
+$getproduk = mysqli_query($koneksi, "SELECT * FROM produk");
 ?>
 
 <!DOCTYPE html>
@@ -80,30 +81,43 @@ require 'cek_login.php';
                             <table id="datatablesSimple">
                                 <thead>
                                     <tr>
-                                        <th>ID Pesanan</th>
-                                        <th>Tanggal Pesan</th>
-                                        <th>Nama Pelanggan</th>
-                                        <th>Jumlah</th>
+                                        <th>No</th>
+                                        <th>Nama Produk</th>
+                                        <th>Deskripsi</th>
+                                        <th>Harga</th>
+                                        <th>Stock</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tfoot>
                                     <tr>
-                                        <th>ID Pesanan</th>
-                                        <th>Tanggal Pesan</th>
-                                        <th>Nama Pelanggan</th>
-                                        <th>Jumlah</th>
+                                    <th>No</th>
+                                        <th>Nama Produk</th>
+                                        <th>Deskripsi</th>
+                                        <th>Harga</th>
+                                        <th>Stock</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </tfoot>
                                 <tbody>
+                                    <?php
+                                    $i =1;
+                                    while($brg = mysqli_fetch_array($getproduk)) {
+                                        $nama_produk = $brg['nama_produk'];
+                                        $deskripsi = $brg['deskripsi'];
+                                        $harga = $brg['harga'];
+                                        $stock = $brg['stock'];
+                                    ?>
+                                    
                                     <tr>
-                                        <td>Tiger Nixon</td>
-                                        <td>System Architect</td>
-                                        <td>Edinburgh</td>
-                                        <td>61</td>
+                                        <td><?= $i++; ?></td>
+                                        <td><?= $nama_produk; ?></td>
+                                        <td><?= $deskripsi; ?></td>
+                                        <td><?= $harga; ?></td>
+                                        <td><?= $stock; ?></td>
                                         <td>Edit | Delete</td>
                                     </tr>
+                                    <?php }; ?>
                                 </tbody>
                             </table>
                         </div>
@@ -155,5 +169,29 @@ require 'cek_login.php';
         </div>
     </div>
 </div>
-
+<div class="modal" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Data Tambah Barang</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form method="POST">
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <input type = "text" name="nama_produk" class="form-control mt-3" placeholder="Nama Produk">
+                    <input type = "text" name="deskripsi" class="form-control mt-3" placeholder="Deskripsi">
+                    <input type = "num" name="harga" class="form-control mt-3" placeholder="Harga">
+                    <input type = "text" name="stock" class="form-control mt-3" placeholder="Stock">
+                </div>
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success" name="tambahbarang">Simpan</button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Tutup</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 </html>

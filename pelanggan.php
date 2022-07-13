@@ -1,5 +1,6 @@
 <?php
 require 'cek_login.php';
+$getpelanggan = mysqli_query($koneksi, "SELECT * FROM pelanggan");
 ?>
 
 
@@ -99,23 +100,27 @@ require 'cek_login.php';
                                 </tfoot>
                                 <tbody>
 <?php
-$getpelanggan = mysqli_query($koneksi, "SELECT * FROM pelanggan");
 $i = 1;
-
-while ($pl = mysqli_fetch_array($getpelanggan)){
-    $id_pelanggan = $pl['id_pelanggan'];
-    $nama_pelanggan = $pl['nama_pelanggan'];
-    $no_tlp = $pl['no_tlp'];
-    $alamat = $pl['alamat'];
-}
+foreach ($getpelanggan as $pl) :
 ?>
                                     <tr>
-                                        <td><?= $i++ ; ?></td>
-                                        <td><?= $nama_pelanggan ; ?></td>
-                                        <td><?= $no_tlp ; ?></td>
-                                        <td><?= $alamat ; ?></td>
-                                        <td>Edit | Delete</td>
+                                        <td><?= $i ; ?></td>
+                                        <td><?= $pl['nama_pelanggan'] ; ?></td>
+                                        <td><?= $pl['no_tlp'] ; ?></td>
+                                        <td><?= $pl['alamat'] ; ?></td>
+                                        <td>
+                                        <button type="button" class="btn btn-warning" data-bs-toggle="modal"
+                                                data-bs-target="#edit<?= $pl['id_pelanggan']; ?>">
+                                                Edit
+                                        </button> 
+                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                                data-bs-target="#delete<?= $pl['id_pelanggan']; ?>">
+                                                Delete
+                                        </button>
+                                        </td>
                                     </tr>
+                                    <?php $i++;?>
+                                    <?php endforeach; ?>
                                 </tbody>
                             </table>
                         </div>
@@ -169,5 +174,60 @@ while ($pl = mysqli_fetch_array($getpelanggan)){
         </div>
     </div>
 </div>
+<!-- Modal Delete -->
+<div class="modal" id="delete<?= $pl['id_pelanggan']; ?>">
+    <div class="modal-dialog">
+        <div class="modal-content">
 
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Delete Data Pelanggan</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form method="POST">
+                <!-- Modal body -->
+                <div class="modal-body">
+                    Apakah Anda ingin menghapus <?= $pl['nama_pelanggan']; ?> ini?
+                    <input type="hidden" name="id_pelanggan" class="form-control mt-3"
+                        value="<?= $pl['id_pelanggan'];  ?>">
+                </div>
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success" name="hapuspelanggan">Ya</button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Batal</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Modal Edit -->
+<div class="modal" id="edit<?= $pl['id_pelanggan']; ?>">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Edit Data Pelanggan</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form method="POST">
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <input type = "text" name="nama_pelanggan" class="form-control mt-3" 
+                    value="<?= $pl['nama_pelanggan'];  ?>" placeholder="Nama Pelanggan">
+                    <input type = "text" name="no_tlp" class="form-control mt-3" value="<?= $pl['no_tlp'];  ?>"
+                    placeholder="Nomor Telp">
+                    <input type = "text" name="alamat" class="form-control mt-3" value="<?= $pl['alamat'];  ?>"
+                    placeholder="Alamat">
+                    
+                </div>
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success" name="editpelanggan">Ya</button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Batal</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 </html>
