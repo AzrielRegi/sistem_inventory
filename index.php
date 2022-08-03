@@ -119,6 +119,34 @@ require 'cek_login.php';
                                             Delete
                                         </button></td>
                                     </tr>
+                                     <!-- Modal Header -->
+                                     <div class="modal-header">
+                                                    <h4 class="modal-title">Delete Barang <?= $nama_produk;  ?></h4>
+                                                    <button type="button" class="btn-close"
+                                                        data-bs-dismiss="modal"></button>
+                                                </div>
+                                                <form method="POST">
+                                                    <!-- Modal body -->
+                                                    <div class="modal-body">
+                                                        Apakah Anda Yakin akan menghapus pesanan <? $nama_pelanggan ?> ini? 
+                                                        <input type="hidden" name="id_pesanan" class="form-control mt-3"
+                                                            value="<?= $id_pesanan;  ?>">
+                                                            <input type="hidden" name="id_pelanggan" class="form-control mt-3"
+                                                            value="<?= $id_pelanggan;  ?>">
+                                                       
+                                                    </div>
+
+                                                    <!-- Modal footer -->
+                                                    <div class="modal-footer">
+                                                        <button type="submit" class="btn btn-success"
+                                                            name="hapuspesanank">Hapus</button>
+                                                        <button type="button" class="btn btn-danger"
+                                                            data-bs-dismiss="modal">Tutup</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <?php
                                     } ?>
                                 </tbody>
