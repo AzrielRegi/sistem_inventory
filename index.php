@@ -119,9 +119,12 @@ require 'cek_login.php';
                                             Delete
                                         </button></td>
                                     </tr>
+                                    <div class="modal" id="edit<?= $id_pesanan; ?>">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
                                      <!-- Modal Header -->
                                      <div class="modal-header">
-                                                    <h4 class="modal-title">Delete Barang <?= $nama_produk;  ?></h4>
+                                                    <h4 class="modal-title">Delete Barang <?= $id_pesanan;  ?></h4>
                                                     <button type="button" class="btn-close"
                                                         data-bs-dismiss="modal"></button>
                                                 </div>
