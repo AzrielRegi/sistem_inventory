@@ -112,8 +112,8 @@ require 'cek_login.php';
                                         <td><?= $nama_pelanggan; ?></td>
                                         <td><?= $alamat; ?></td>
                                         <td> 
-                                       <a href="view.php?idp=<?= $id_pesanan; ?>" class="btn btn-primary" target="blank">
-                                       Tampilkan | 
+                                       <a href="view.php?idp=<?= $id_pesanan; ?>" class="btn btn-primary" data-bs-target="blank">
+                                       Tampilkan  </a>| 
                                         <button type="button" class="btn btn-danger" data-bs-toggle="modal"
                                             data-bs-target="#edit<?= $id_pelanggan?>">
                                             Delete
